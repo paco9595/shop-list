@@ -1,26 +1,40 @@
 import React from 'react'
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Home, Login } from './views'
-import { NavbarComponent } from './components'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from "react-router-dom";
+import { NavbarComponent, PrivateRoute } from './components'
+import { ThemeProvider } from 'styled-components';
+import { Theme } from './utilities/themes'
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 
-function App () {
-  return (
-    <Router>
-      <NavbarComponent />
-      <Switch>
-        <Route path="/login" component={Login}/>
-        <Route path="/" component={Home}/>
-      </Switch>
-    </Router>
-  );
+
+export const App = ({ authenticated, checked }) => {
+	return (
+		<ThemeProvider theme={Theme}>
+			<Router>
+				<NavbarComponent />
+				{checked &&
+					<Switch>
+						<PrivateRoute exact path="/home" component={Home} authenticated={authenticated} />
+						<Route path="/" component={Login} />
+					</Switch>
+				}
+			</Router>
+		</ThemeProvider>
+	);
 }
 
+const { bool } = PropTypes;
 
+App.propTypes = {
+	authenticated: bool.isRequired,
+	checked: bool.isRequired
+};
 
+const mapState = ({ session }) => ({
+	checked: session.checked,
+	authenticated: session.authenticated
+});
 
-export default App;
+export default connect(mapState)(App);

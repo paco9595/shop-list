@@ -1,14 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import { Provider } from 'react-redux';
+import { combineReducers, createStore, compose, applyMiddleware } from 'redux';
+import { sessionService, sessionReducer } from 'redux-react-session';
+import thunkMiddleware from 'redux-thunk';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './index.css'
+
+const reducer = combineReducers({
+	session: sessionReducer
+});
+
+const store = createStore(reducer, undefined, compose(applyMiddleware(thunkMiddleware)));
+
+const options = { refreshOnCheckAuth: true, redirectPath: '/', driver: 'COOKIES' };
+
+sessionService.initSessionService(store, options);
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+
+	<Provider store={store}>
+		<App />
+	</Provider>
+	,
+	document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function

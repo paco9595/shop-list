@@ -1,1 +1,2 @@
-export { googleAuth } from './auth'
+export { getAuth } from './auth'
+export { getList }from './listService'

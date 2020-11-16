@@ -1,10 +1,17 @@
-import { axiosInstance } from './requester'
+import axios from 'axios'
 
-const googleAuth = async idToken => {
-    const resposne = await axiosInstance().post('/user/auth/google', { idToken });
-    sessionStorage.setItem('token', JSON.stringify(resposne.data.token));
+const basePath = process.env.PUBLIC_URL || 'http://localhost:3977'
+
+
+const getAuth = (type, body) => {
+    return axios.post(`${basePath}/user/auth/${type}`, { ...body }).then(({ data }) => {
+        console.log(data)
+        return {
+            ...data
+        }
+    });
 }
 
 export {
-    googleAuth
+    getAuth
 }

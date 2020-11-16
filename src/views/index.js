@@ -1,2 +1,6 @@
-export { Home } from './home'
-export{ Login} from './login'
+import Login from './login';
+import Home from './home';
+export {
+    Login,
+    Home
+};

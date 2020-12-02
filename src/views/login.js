@@ -67,7 +67,11 @@ const Login = ({actions, history, sessionInfo}) => {
 										onFailure={responseGoogle}
 										cookiePolicy={'single_host_origin'}
 										render={renderProps => (
-											<LoginButton type={'google'} title={'Sign in with google'} renderProps={renderProps} />
+											<LoginButton 
+												type={'google'}
+												title={'Sign in with google'}
+												renderProps={renderProps}
+											/>
 										)}
 									/>
 								</Col>

@@ -1,10 +1,14 @@
-import { Form } from 'react-bootstrap'
+import { TextFilter } from 'react-text-filter';
 
-export const SearchBar = props => {
+export const SearchBar = ({searchChangeHandelr}) => {
+    const changeHandler = value => {
+        console.log('value', value)
+        searchChangeHandelr(value)
+    }
 
     return (
-        <Form>
-            <Form.Control type="text" placeholder="nombre de lista" />
-        </Form>
+        <TextFilter 
+            className='form-control'
+            onFilter={({ target: { value: filter } }) => changeHandler(filter)} />
     )
 }

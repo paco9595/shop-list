@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, ListGroup, ListGroupItem} from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { SearchBar, AddModel } from './../components';
-import { getList } from "./../services";
-import { ListAction } from './../actions/listActions';
+import { SearchBar, AddModel, CardItem } from './../components';
+import { getList, postList } from "./../services";
 import addIcon from './../utilities/icons/plus.svg';
 import styled from 'styled-components';
 
@@ -17,31 +15,52 @@ const ListRow = styled(Row)`
 	margin-top: 10px;
 	margin-bottom: 10px;
 `;
+const CardRow =styled(Row)`
+	padding: 0 15px;
+`
+const CardContainer = styled(Col)`
+	margin: 10px 0;
+	min-height: 100px;
+    background-color: #fdbf62d4;
+    border-radius: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+`;
 
-const Home = ({ user }) => {
-	//const [searchedWord, setSearcedhWord] = useState('');
-	const [list, setList] = useState([{ name: 'test' }]);
+const Home = ({ user, history }) => {
+	const [list, setList] = useState([]);
 	const [addModalFlag, setAddModalFlag] = useState(false);
-	const modalHandelr = event => console.log('event', event)
-
+	
 	useEffect(() => {
-		if (user) {
-			console.log('props', user)
+		if (user && user.id) {
 			getList(user.id).then(data => {
-				console.log('component data', data);
 				setList(data)
-			})
+			});
 		}
 
 	}, [user]);
 
-	const toggalAddFlag = () =>{
+	const toggalAddFlag = () => {
 		console.log('flag', addModalFlag);
 		setAddModalFlag(!addModalFlag)
 	}
-	const closeModal = ()=> {
+	const closeModal = () => {
 		setAddModalFlag(false)
 	}
+	const submit = value => {
+		console.log('submit', value);
+		postList(user.id, value).then(response => {
+			setList([...list, response]);
+			console.log('post', response)
+			history.push(`/list/${response._id}`)
+		});
+		closeModal()
+	}
+	const goToList = list => {
+		console.log(list)
+		history.push(`/list/${list._id}`)
+	}
+
 	return (
 		<Container>
 			<Row>
@@ -53,30 +72,43 @@ const Home = ({ user }) => {
 				<Col >
 					LISTAS
 				</Col>
-				<Col className="text-right"  onClick={toggalAddFlag} >
+				<Col className="text-right" onClick={toggalAddFlag} >
 					<Icon src={addIcon} alt="add button" />
 					add list
 				</Col>
 			</ListRow>
-			<Row>
-				<Col>
-					<ListGroup variant="flush">
-						{list.map((i, key) => <ListGroupItem key={key}>{i.name}</ListGroupItem>)}
-					</ListGroup>
-				</Col>
-			</Row>
-			<AddModel show={addModalFlag} cancel={closeModal}/>
+			<CardRow>
+				{list.map((i, key) =>
+					<CardContainer
+						key={key}
+						xs={12}
+						md={{ span: 4, offset: 1 }}
+						
+						onClick={() => goToList(i)}
+					>
+						{i.name}
+						{i.item.map((j, keyTwo) => (
+							<CardItem
+								id={keyTwo}
+								key={keyTwo}
+								checked={j.checked}
+								name={j.name}
+								checkHandeler={(value) => console.log(value)}
+							/>
+						))}
+					</CardContainer>
+				)}
+			</CardRow >
+			<AddModel show={addModalFlag} cancel={closeModal} submit={submit} />
 		</Container>
 	);
 }
 
-const mapDispatchToProps = dispatch => ({
-	lists: bindActionCreators({ ListAction }, dispatch)
-})
+
 const mapStateToProps = state => ({
 	user: state.session.user,
 	sessionInfo: state.session.authenticated,
 	checked: state.session.checked
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default connect(mapStateToProps)(Home)

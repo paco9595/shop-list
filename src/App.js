@@ -1,26 +1,39 @@
 import React from 'react'
+import { ToastProvider } from 'react-toast-notifications';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Home, Login } from './views'
+import { Home, Login, List } from './views'
 import { NavbarComponent, PrivateRoute } from './components'
 import { ThemeProvider } from 'styled-components';
 import { Theme } from './utilities/themes'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import styled from 'styled-components'
 
 
+const WrapContainer = styled.div`
+	background-color: ${props => props.theme.background};
+`;
 
 export const App = ({ authenticated, checked }) => {
 	return (
 		<ThemeProvider theme={Theme}>
-			<Router>
-				<NavbarComponent />
-				{checked &&
-					<Switch>
-						<PrivateRoute exact path="/home" component={Home} authenticated={authenticated} />
-						<Route path="/" component={Login} />
-					</Switch>
-				}
-			</Router>
+			<ToastProvider
+				autoDismiss={false}
+				placement="top-right"
+			>
+				<WrapContainer>
+					<Router>
+						<NavbarComponent />
+						{checked &&
+							<Switch>
+								<PrivateRoute exact path="/home" component={Home} authenticated={authenticated} />
+								<PrivateRoute exact path="/list/:id" component={List} authenticated={authenticated} />
+								<Route path="/" component={Login} />
+							</Switch>
+						}
+					</Router>
+				</WrapContainer>
+			</ToastProvider>
 		</ThemeProvider>
 	);
 }

@@ -4,12 +4,20 @@ const basePath = process.env.PUBLIC_URL || 'http://localhost:3977'
 
 
 export const getList = idUser => {
-    return axios.get(`${basePath}/list/${idUser}`,).then(response => {
-        return response.data
-    });
+    return axios.get(`${basePath}/list/${idUser}`,).then(response => response.data);
 }
-export const postList = idUser => {
-    return axios.post (`${basePath}/list/${idUser}`,).then(response => {
-        return response.data
-    });
+export const postList = (idUser, {name, items}) => {
+    return axios.post(`${basePath}/list/${idUser}`, {
+        idUser,
+        name,
+        items
+    }).then(response => response.data);
+}
+
+export const deletList = (idUser, idList) => {
+    return axios.delete(`${basePath}/list/${idUser}/${idList}`).then(response => response.data);
+}
+
+export const getFullList = (idUser, idList) => {
+    return axios.get(`${basePath}/list/${idUser}/${idList}`).then(response => response.data)
 }

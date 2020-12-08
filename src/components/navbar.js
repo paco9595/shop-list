@@ -5,7 +5,7 @@ const NavbarComponent = props => {
     return (
         <Container>
             <Navbar sticky="bottom" >
-                <Navbar.Brand href="/home">SHOP LIST</Navbar.Brand>
+                <Navbar.Brand href="/home">To Do List</Navbar.Brand>
                 <Nav className="mr-auto" />
                 <Nav>
                     <Nav.Link className="text-right">

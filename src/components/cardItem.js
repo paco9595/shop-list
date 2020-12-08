@@ -4,6 +4,7 @@ import { CheckBox } from './checkBox';
 const Item = styled.div`
     padding: 5px;
     font-size: 10px;
+    margin: 0 10px;
 `;
 export const CardItem = ({ checked, name,id, checkHandeler}) => {
     return (

@@ -6,11 +6,12 @@ const basePath = process.env.PUBLIC_URL || 'http://localhost:3977'
 export const getList = idUser => {
     return axios.get(`${basePath}/list/${idUser}`,).then(response => response.data);
 }
-export const postList = (idUser, {name, items}) => {
+export const postList = (idUser, {name, items,color}) => {
     return axios.post(`${basePath}/list/${idUser}`, {
         idUser,
         name,
-        items
+        items,
+        color
     }).then(response => response.data);
 }
 

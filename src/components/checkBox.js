@@ -43,7 +43,6 @@ const Checkmark = styled.div`
     left: 0;
     height: 20px;
     width: 20px;
-    background: #e6e6e6;
     border: 0px solid #000000;
     border-radius: 0px;
     ${LabelContainer} &:after{
@@ -89,7 +88,7 @@ const CheckboxInput = styled.input`
     opacity: 0;
 
     ${LabelContainer}:hover ${Checkmark} ~ ${Checkmark}, ${LabelContainer} &:focus ~ ${Checkmark}{
-        background: #cccccc;
+        background: red;
     }
     ${LabelContainer} &:checked ~ ${Checkmark} {
         background: #fff;
@@ -100,10 +99,6 @@ const CheckboxInput = styled.input`
         border-right: 4px solid #78b13f;
         margin: 0 10px;
     }
-    ${LabelContainer}:hover &:not([disabled]):checked ~ ${Checkmark},
-    ${LabelContainer} &:checked:focus ~ ${Checkmark} {
-    background: #0e6647d;
-    }
     ${LabelContainer} ${Checkmark} + ${Checkmark}::before {
         animation: ${sRipple} 250ms ease-out;
     }
@@ -111,12 +106,11 @@ const CheckboxInput = styled.input`
         animation-name: ${sRippleDup};
     }
 `
-export const CheckBox = params => {
-    const checkboxHandler = event => params.change(event.target.checked)
+export const CheckBox = ({label, checked}) => {
     return (
         <LabelContainer className="container">
-            {params.label}
-            <CheckboxInput type="checkbox" onChange={checkboxHandler} defaultChecked={params.checked} />
+            {label} 
+            <CheckboxInput readOnly type="checkbox" checked={checked}/>
             <Checkmark className="checkmark" />
         </LabelContainer>
     )

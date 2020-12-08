@@ -28,7 +28,7 @@ export const AddModel = ({ show, cancel, submit }) => {
             const elemento = {
                 name: elementosInputRef.current.value,
                 marca: '',
-                cantidad: 0,
+                cantidad: 1,
             }
             setLista([...lista, elemento])
             elementosInputRef.current.value = ''
@@ -43,7 +43,9 @@ export const AddModel = ({ show, cancel, submit }) => {
                 name,
                 marca,
                 cantidad,
-                checked: false
+                checked: false,
+                color
+
             }
             setLista([...lista, elemento]);
             elementosInputRef.current.value = ''
@@ -63,6 +65,7 @@ export const AddModel = ({ show, cancel, submit }) => {
         submit({
             name,
             items: lista,
+            color
         });
     }
 

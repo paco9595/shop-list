@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { Container, Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { SearchBar, AddModel, CardItem } from './../components';
+import { SearchBar, AddModel, CirculeImage } from './../components';
 import { getList, postList } from "./../services";
-import addIcon from './../utilities/icons/plus.svg';
 import styled from 'styled-components';
+import AddIcon from './../utilities/icons/plus.svg';
+
 
 const Icon = styled.img`
-	width: 10px;
-	hight: 10px;
+	width: 15px;
+	height: 15px;
 	margin-right: 5px;
+	
 `;
+
 const ListRow = styled(Row)`
 	margin-top: 10px;
 	margin-bottom: 10px;
@@ -20,11 +23,12 @@ const CardRow =styled(Row)`
 `
 const CardContainer = styled(Col)`
 	margin: 10px 0;
-	min-height: 100px;
-    background-color: #fdbf62d4;
-    border-radius: 10px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+	min-height: 50px;
+	background-color: ${props=> props.color || '#fdbf62d4'};
+    	border-radius: 10px;
+	padding-top: 15px;
+	display: flex;
+	justify-content: space-between;
 `;
 
 const Home = ({ user, history }) => {
@@ -33,6 +37,7 @@ const Home = ({ user, history }) => {
 	
 	useEffect(() => {
 		if (user && user.id) {
+			console.log('user', user);
 			getList(user.id).then(data => {
 				setList(data)
 			});
@@ -50,8 +55,6 @@ const Home = ({ user, history }) => {
 	const submit = value => {
 		console.log('submit', value);
 		postList(user.id, value).then(response => {
-			setList([...list, response]);
-			console.log('post', response)
 			history.push(`/list/${response._id}`)
 		});
 		closeModal()
@@ -73,7 +76,7 @@ const Home = ({ user, history }) => {
 					LISTAS
 				</Col>
 				<Col className="text-right" onClick={toggalAddFlag} >
-					<Icon src={addIcon} alt="add button" />
+					<Icon src={AddIcon} alt="add button" />
 					add list
 				</Col>
 			</ListRow>
@@ -83,19 +86,11 @@ const Home = ({ user, history }) => {
 						key={key}
 						xs={12}
 						md={{ span: 4, offset: 1 }}
-						
+						color={i.color}
 						onClick={() => goToList(i)}
 					>
 						{i.name}
-						{i.item.map((j, keyTwo) => (
-							<CardItem
-								id={keyTwo}
-								key={keyTwo}
-								checked={j.checked}
-								name={j.name}
-								checkHandeler={(value) => console.log(value)}
-							/>
-						))}
+						<CirculeImage src={user.picture}/>
 					</CardContainer>
 				)}
 			</CardRow >

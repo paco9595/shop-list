@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const basePath = process.env.BASE_URL || 'http://localhost:3977'
+const basePath = process.env.BASE_URL || 'https://api-shop-list.herokuapp.com'
 
 const getAuth = (type, body) => {
     console.log(basePath);

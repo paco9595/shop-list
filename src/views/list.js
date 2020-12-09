@@ -14,6 +14,7 @@ const FormContainer = styled(Row)`
 
 const ListContainer = styled(ListGroup)`
     overflow:hidden;
+    margin-bottom: 30px;
 `;
 const List = ({ match, user, history }) => {
     const { addToast } = useToasts();

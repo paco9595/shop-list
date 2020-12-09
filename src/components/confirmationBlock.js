@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Confirmation = styled.div`
-    background-color: ${props => props.active ? '#8bc34a' : '#e91e63'};
+    background-color: ${props => props.color};
     width: 100%;
     height: 58px;
     z-index: 9;
@@ -17,10 +17,10 @@ const Block = styled.div`
     justify-content: ${props => props.active ? 'flex-start' : 'flex-end'};
 `
 
-export const ConfitmationBlock = ({ active }) => {
-    return <Confirmation active={active}>
+export const ConfitmationBlock = ({ active, color }) => {
+    return <Confirmation color={color}>
         <Block active={active}>
-            {active? "complete": 'in complete'}
+            {active ? "complete" : 'in complete'}
         </Block>
     </Confirmation>
 }

@@ -18,6 +18,7 @@ const ItemContainer = styled.div`
 export const ItemList = ({ item, checkHandeler, id }) => {
     const [controlledPosition, setControlledPosition] = useState({ x: 0, y: 0 })
     const [active, setActive] = useState(true);
+    const [color, setColor] = useState('#f6f6f2')
     const stop = (event, data, id) => {
         console.log('stop', event);
         console.log('data', data);
@@ -36,12 +37,16 @@ export const ItemList = ({ item, checkHandeler, id }) => {
             }
         }
         setControlledPosition({ x: 0, y: 0 })
+        setColor('#f6f6f2')
+
     }
     const dragHandler = (event, data) => {
         if (data.x > 0) {
             setActive(true);
+            setColor('#8bc34a');
         } else {
-            setActive(false);
+            setActive(false); 
+            setColor('#e91e63')
         }
     }
 
@@ -74,6 +79,6 @@ export const ItemList = ({ item, checkHandeler, id }) => {
                 </ListGroupItem>
             </Draggable>
         </DraggableContainer>
-        <ConfitmationBlock active={active} />
+        <ConfitmationBlock active={active} color={color}/>
     </ItemContainer>
 }

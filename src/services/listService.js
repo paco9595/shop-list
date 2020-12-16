@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const basePath = process.env.PUBLIC_URL
+const basePath = process.env.BASE_URL
 
 
 export const getList = idUser => {

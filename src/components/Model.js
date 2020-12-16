@@ -3,7 +3,7 @@ import { Modal, Button, Container, Row, Col, Form, Table } from 'react-bootstrap
 import { CirclePicker } from 'react-color';
 import styled from 'styled-components';
 import Trash from './../utilities/icons/trash.svg';
-
+import { Theme } from '../utilities/themes';
 const TableElements = styled(Table)`
     margin: 20px 15px;
 `;
@@ -13,18 +13,17 @@ const TrashIcon = styled.img`
     height:20px;
 `;
 const colorArray = ["#f44336", "#e91e63", "#9c27b0", "#673ab7", "#3f51b5", "#2196f3", "#03a9f4", "#00bcd4", "#009688", "#4caf50", "#8bc34a", "#cddc39", "#ffeb3b", "#ffc107", "#ff9800", "#ff5722", "#795548", "#607d8b"];
-export const AddModel = ({ show, cancel, submit }) => {
+export const Model = ({ show, cancel, submit }) => {
     const nameInputRef = useRef(null);
     const elementosInputRef = useRef(null);
     const marcaInputRef = useRef(null);
     const cantidadInputRef = useRef(null);
     const [lista, setLista] = useState([]);
     const [isFocus, setFocus] = useState(false);
-    const [color, setColor] = useState(colorArray[13]);
+    const [color, setColor] = useState(Theme.colorlist[1]);
+
     const enterHandler = event => {
-        console.log('ref', event)
         if (isFocus && event.keyCode === 13) {
-            console.log('enter')
             const elemento = {
                 name: elementosInputRef.current.value,
                 marca: '',
@@ -53,7 +52,6 @@ export const AddModel = ({ show, cancel, submit }) => {
             cantidadInputRef.current.value = ''
         }
         elementosInputRef.current.focus();
-        console.log('list', lista);
     }
 
     const removeItem = key => {
@@ -93,7 +91,7 @@ export const AddModel = ({ show, cancel, submit }) => {
                                 <CirclePicker
                                     color={color}
                                     width={'100%'}
-                                    colors={colorArray}
+                                    colors={Theme.colorlist}
                                     onChange={(event) => setColor(event.hex)}
                                 />
                             </Form.Group>

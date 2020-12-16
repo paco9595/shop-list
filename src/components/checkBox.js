@@ -95,8 +95,8 @@ const CheckboxInput = styled.input`
         transform: rotate(45deg);
         height: 20px;
         width: 9px;
-        border-bottom: 4px solid #78b13f;
-        border-right: 4px solid #78b13f;
+        border-bottom: 4px solid ${props => props.color};
+        border-right: 4px solid ${props => props.color};
         margin: 0 10px;
     }
     ${LabelContainer} ${Checkmark} + ${Checkmark}::before {
@@ -106,11 +106,11 @@ const CheckboxInput = styled.input`
         animation-name: ${sRippleDup};
     }
 `
-export const CheckBox = ({label, checked}) => {
+export const CheckBox = ({ label, checked, color }) => {
     return (
         <LabelContainer className="container">
-            {label} 
-            <CheckboxInput readOnly type="checkbox" checked={checked}/>
+            {label}
+            <CheckboxInput readOnly type="checkbox" checked={checked} color={color} />
             <Checkmark className="checkmark" />
         </LabelContainer>
     )

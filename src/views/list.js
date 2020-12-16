@@ -3,10 +3,10 @@ import { getFullList, updateItem } from "./../services";
 import { connect } from 'react-redux';
 import { deletList, deleteItem } from "./../services";
 import { Container, Row, Col, ListGroup } from 'react-bootstrap'
-import { SearchBar,ItemList } from './../components'
+import { SearchBar,ItemList, Icon} from './../components'
 import styled from 'styled-components'
 import { useToasts } from 'react-toast-notifications'
-
+import Pencil from './../utilities/icons/editar.svg'
 
 const FormContainer = styled(Row)`
     padding: 20px 0;
@@ -16,8 +16,14 @@ const ListContainer = styled(ListGroup)`
     overflow:hidden;
     margin-bottom: 30px;
 `;
+
+const Title = styled.h1`
+    color:${props => props.color? props.color : 'inherit'};
+    text-transform: capitalize;
+`;
 const List = ({ match, user, history }) => {
     const { addToast } = useToasts();
+    const [editMode, setEditMode] = useState(false);
     const [userList, setUserList] = useState({ item: [] })
     const { id: matchId } = match.params;
     useEffect(() => {
@@ -63,14 +69,19 @@ const List = ({ match, user, history }) => {
         setUserList({ ...userList, item: updateList });
         deleteItem(user.id, matchId, item._id).then(res => console.log('res', res));
     };
-
+    const editHandler = ()=> {
+        setEditMode(true);
+    }
     
     return (
         <Container>
-            <Row>
+            <Row className="justify-content-between">
                 <Col>
-                    <h1>{userList.name}</h1>
+                    <Title color={userList.color}>{userList.name}</Title>
                 </Col>
+                {!editMode && <Col xs={2} className="align-self-center text-right">
+                    <Icon src={Pencil} alt='edit icon' onClick={editHandler}/>
+                </Col>}
             </Row>
             <FormContainer>
                 <Col>
@@ -89,6 +100,8 @@ const List = ({ match, user, history }) => {
                         id={key}
                         key={key}
                         checkHandeler={checkHandeler}
+                        editMode={editMode}
+                        color={userList.color}
                     /> 
                 )}
             </ListContainer>

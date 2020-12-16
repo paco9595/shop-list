@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Container, Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { SearchBar, AddModel, CirculeImage } from './../components';
+import { SearchBar, Model, CirculeImage } from './../components';
 import { getList, postList } from "./../services";
 import styled from 'styled-components';
 import AddIcon from './../utilities/icons/plus.svg';
@@ -29,6 +29,7 @@ const CardContainer = styled(Col)`
 	padding-top: 15px;
 	display: flex;
 	justify-content: space-between;
+	color: black;
 `;
 
 const Home = ({ user, history }) => {
@@ -94,7 +95,7 @@ const Home = ({ user, history }) => {
 					</CardContainer>
 				)}
 			</CardRow >
-			<AddModel show={addModalFlag} cancel={closeModal} submit={submit} />
+			<Model show={addModalFlag} cancel={closeModal} submit={submit} />
 		</Container>
 	);
 }

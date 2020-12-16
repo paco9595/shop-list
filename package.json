@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.0",
     "bootstrap": "^4.5.3",
+    "history": "^4.10.1",
     "jwt-simple": "^0.5.6",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
@@ -33,7 +34,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "aws-cli s3 sync ./build/ s3://react-shop-list"
   },
   "eslintConfig": {
     "extends": [

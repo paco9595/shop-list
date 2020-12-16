@@ -6,6 +6,7 @@ const Confirmation = styled.div`
     width: 100%;
     height: 58px;
     z-index: 9;
+    border-radius: 5px;
 `;
 const Block = styled.div`
     width: 100%;

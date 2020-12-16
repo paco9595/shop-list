@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 
-const basePath = process.env.PUBLIC_URL || 'https://api-shop-list.herokuapp.com'
+const basePath = process.env.PUBLIC_URL
 
 export const deleteItem = (idUser, idList, idItem) => {
     return axios.delete(`${basePath}/item/${idUser}/${idList}/${idItem}`).then(response => response.data);

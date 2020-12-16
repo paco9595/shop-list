@@ -61,7 +61,7 @@ const Login = ({actions, history, sessionInfo}) => {
 							<Row className="justify-content-md-center" >
 								<Col xs={12} className='d-flex justify-content-center'>
 									<GoogleLogin
-										clientId={'481268890134-i5s0fkblbv4m4ufpqptc036ve1a3ll22.apps.googleusercontent.com'}
+										clientId={process.env.GOOGLE_CLIENT_ID}
 										buttonText="Inicia Session"
 										onSuccess={responseGoogle}
 										onFailure={responseGoogle}

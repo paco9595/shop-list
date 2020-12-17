@@ -32,8 +32,8 @@
   },
   "scripts": {
     "start": "react-app-env --env-file=./config/dev.env start",
-    "build": "react-app-env --env-file=./config/prod.env build",
-    "test": "react-app-env --env-file=./config/dev.env test",
+    "build": "react-scripts build",
+    "test": "react-scripts --env-file=./config/dev.env test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

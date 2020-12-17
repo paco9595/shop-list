@@ -82,7 +82,7 @@ const Home = ({ user, history }) => {
 				</Col>
 			</ListRow>
 			<CardRow>
-				{list.map((i, key) =>
+				{list && list.map((i, key) =>
 					<CardContainer
 						key={key}
 						xs={12}

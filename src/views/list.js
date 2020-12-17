@@ -59,16 +59,16 @@ const List = ({ match, user, history }) => {
     const searchChangeHandelr = value => {
         console.log('handelr value ', value)
     }
-    const removeListHandler = () => {
-        const { id: matchId } = match.params;
-        deletList(user.id, matchId).then(res => history.goBack())
-    };
-    const removeItemHandler = item => {
-        const updateList = userList.item.filter(i => item._id !== i._id);
-        const { id: matchId } = match.params;
-        setUserList({ ...userList, item: updateList });
-        deleteItem(user.id, matchId, item._id).then(res => console.log('res', res));
-    };
+    // const removeListHandler = () => {
+    //     const { id: matchId } = match.params;
+    //     deletList(user.id, matchId).then(res => history.goBack())
+    // };
+    // const removeItemHandler = item => {
+    //     const updateList = userList.item.filter(i => item._id !== i._id);
+    //     const { id: matchId } = match.params;
+    //     setUserList({ ...userList, item: updateList });
+    //     deleteItem(user.id, matchId, item._id).then(res => console.log('res', res));
+    // };
     const editHandler = ()=> {
         setEditMode(true);
     }

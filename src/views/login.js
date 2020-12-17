@@ -27,7 +27,6 @@ const Title = styled.div`
 `
 
 const Login = ({actions, history, sessionInfo}) => {
-	console.log(process.env)
 	useEffect(() => {
 		if (sessionInfo) {
 			history.push('/home')
@@ -61,7 +60,7 @@ const Login = ({actions, history, sessionInfo}) => {
 							<Row className="justify-content-md-center" >
 								<Col xs={12} className='d-flex justify-content-center'>
 									<GoogleLogin
-										clientId={process.env.GOOGLE_CLIENT_ID}
+										clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
 										buttonText="Inicia Session"
 										onSuccess={responseGoogle}
 										onFailure={responseGoogle}

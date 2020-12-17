@@ -31,11 +31,10 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "deploy": "aws-cli s3 sync ./build/ s3://react-shop-list"
+    "start": "react-app-env --env-file=./config/dev.env start",
+    "build": "react-app-env --env-file=./config/prod.env build",
+    "test": "react-app-env --env-file=./config/dev.env test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -54,5 +53,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "react-app-env": "^1.2.3"
   }
 }

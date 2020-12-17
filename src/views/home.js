@@ -35,7 +35,7 @@ const CardContainer = styled(Col)`
 const Home = ({ user, history }) => {
 	const [list, setList] = useState([]);
 	const [addModalFlag, setAddModalFlag] = useState(false);
-	
+	console.log(process.env)
 	useEffect(() => {
 		if (user && user.id) {
 			console.log('user', user);

@@ -27,6 +27,7 @@ const Title = styled.div`
 `
 
 const Login = ({actions, history, sessionInfo}) => {
+	console.log(process.env)
 	useEffect(() => {
 		if (sessionInfo) {
 			history.push('/home')

@@ -35,10 +35,8 @@ const CardContainer = styled(Col)`
 const Home = ({ user, history }) => {
 	const [list, setList] = useState([]);
 	const [addModalFlag, setAddModalFlag] = useState(false);
-	console.log(process.env)
 	useEffect(() => {
 		if (user && user.id) {
-			console.log('user', user);
 			getList(user.id).then(data => {
 				setList(data)
 			});
@@ -47,21 +45,18 @@ const Home = ({ user, history }) => {
 	}, [user]);
 
 	const toggalAddFlag = () => {
-		console.log('flag', addModalFlag);
 		setAddModalFlag(!addModalFlag)
 	}
 	const closeModal = () => {
 		setAddModalFlag(false)
 	}
 	const submit = value => {
-		console.log('submit', value);
 		postList(user.id, value).then(response => {
 			history.push(`/list/${response._id}`)
 		});
 		closeModal()
 	}
 	const goToList = list => {
-		console.log(list)
 		history.push(`/list/${list._id}`)
 	}
 

@@ -4,7 +4,6 @@ import { getAuth } from './../services'
 export const LoginService = (type, user, history) => {
   return () => {
     return getAuth(type, user).then(response => {
-      console.log('endpoind', response)
       const { token } = response;
       sessionService.saveSession({ token })
         .then(() => {

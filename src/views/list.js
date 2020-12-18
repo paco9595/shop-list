@@ -29,7 +29,7 @@ const List = ({ match, user, history }) => {
     useEffect(() => {
         if (user.id) {
             getFullList(user.id, matchId).then(data => {
-                console.log('data', data);
+                
                 if (data.name) {
                     setUserList(data)
                     //setUserList({ ...data, item: [{ name: 'test' }] })
@@ -47,9 +47,7 @@ const List = ({ match, user, history }) => {
             ...item,
             checked
         }).then(({ data }) => {
-            console.log('endpoint test ', data);
         }).catch((data) => {
-            console.log('error', data.message)
             addToast(data.message, {
                 appearance: 'error',
                 autoDismiss: true,
@@ -57,7 +55,6 @@ const List = ({ match, user, history }) => {
         });
     }
     const searchChangeHandelr = value => {
-        console.log('handelr value ', value)
     }
     // const removeListHandler = () => {
     //     const { id: matchId } = match.params;

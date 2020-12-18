@@ -26,15 +26,11 @@ export const ItemList = ({ item, checkHandeler, id, editMode, color:checkColor }
     const stop = (event, data, id) => {
         if (data.x !== 0) {
             if (data.x >= data.node.scrollWidth / 1.75) {
-                console.log('derecha', data.node.scrollWidth);
                 item.checked = true;
-                console.log(item, item.checked, id)
                 checkHandeler(true, id)
             }
             else if (data.x + data.node.scrollWidth <= data.node.scrollWidth / 1.75) {
-                console.log('izquierda', data.x, data.node.scrollWidth);
                 item.checked = false;
-                console.log(item, item.checked, id)
                 checkHandeler(false, id)
             }
         }

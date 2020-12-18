@@ -27,7 +27,6 @@ const Title = styled.div`
 `
 
 const Login = ({actions, history, sessionInfo}) => {
-	console.log(process.env)
 	useEffect(() => {
 		if (sessionInfo) {
 			history.push('/home')
@@ -35,14 +34,12 @@ const Login = ({actions, history, sessionInfo}) => {
 	}, [history, sessionInfo]);
 
 	const responseGoogle = async user => {
-		console.log('user', user)
 		const { LoginService } = actions;
 		LoginService('google', {
 			idToken: user.tokenId
 		}, history)
 	}
 	const responseFacebook = user => {
-		console.log('facebook', user)
 	}
 
 	return <Container>

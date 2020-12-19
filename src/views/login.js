@@ -39,8 +39,14 @@ const Login = ({actions, history, sessionInfo}) => {
 			idToken: user.tokenId
 		}, history)
 	}
-	const responseFacebook = user => {
-		console.log(user)
+	const responseFacebook = ({accessToken, email, name, picture}) => {
+		console.log({accessToken, email, name, picture})
+		LoginServices('facebook', {
+			accessToken,
+			email,
+			name,
+			picture: picture.data.url
+		});
 	}
 
 	return <Container>

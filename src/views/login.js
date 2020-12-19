@@ -40,8 +40,9 @@ const Login = ({actions, history, sessionInfo}) => {
 		}, history)
 	}
 	const responseFacebook = ({accessToken, email, name, picture}) => {
+		const { LoginService } = actions;
 		console.log({accessToken, email, name, picture})
-		LoginServices('facebook', {
+		LoginService('facebook', {
 			accessToken,
 			email,
 			name,

@@ -40,6 +40,7 @@ const Login = ({actions, history, sessionInfo}) => {
 		}, history)
 	}
 	const responseFacebook = user => {
+		console.log(user)
 	}
 
 	return <Container>
@@ -83,7 +84,7 @@ const Login = ({actions, history, sessionInfo}) => {
 							<Row className="justify-content-md-center">
 								<Col xs={12} className='d-flex justify-content-center'>
 									<FacebookLogin
-										appId={'1533292150198885'}
+										appId={process.env.REACT_APP_FACEBOOK_APP_ID}
 										autoLoad={false}
 										fields="name,email,picture"
 										callback={responseFacebook}

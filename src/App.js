@@ -2,7 +2,7 @@ import React from 'react';
 import { ToastProvider } from 'react-toast-notifications';
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import { Home, Login, List } from './views';
-import { NavbarComponent, PrivateRoute } from './components';
+import { NavbarComponent, PrivateRoute, Toast} from './components';
 import { ThemeProvider } from 'styled-components';
 import { Theme } from './utilities/themes';
 import { connect } from 'react-redux';
@@ -21,6 +21,8 @@ export const App = ({ authenticated, checked }) => {
 			<ToastProvider
 				autoDismiss={false}
 				placement="top-right"
+				autoDismissTimeout={2000}
+				components={{ Toast }}
 			>
 				<WrapContainer>
 					<Router history={customHistory }>

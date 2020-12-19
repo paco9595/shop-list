@@ -10,4 +10,5 @@ export { CardItem } from './cardItem';
 export { CirculeImage } from './circuleImage';
 export { ItemList } from './itemList';
 export { Icon } from './Icon';
+export { Toast } from './toast';
 export { NavbarComponent };

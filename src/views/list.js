@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { getFullList, updateItem } from "./../services";
+import { getFullList, updateItem, updateListService } from "./../services";
 import { connect } from 'react-redux';
-import { deletList, deleteItem } from "./../services";
 import { Container, Row, Col, ListGroup } from 'react-bootstrap'
-import { SearchBar,ItemList, Icon} from './../components'
+import { SearchBar, ItemList, Icon, Model } from './../components'
 import styled from 'styled-components'
 import { useToasts } from 'react-toast-notifications'
 import Pencil from './../utilities/icons/editar.svg'
@@ -18,7 +17,7 @@ const ListContainer = styled(ListGroup)`
 `;
 
 const Title = styled.h1`
-    color:${props => props.color? props.color : 'inherit'};
+    color:${props => props.color ? props.color : 'inherit'};
     text-transform: capitalize;
 `;
 const List = ({ match, user, history }) => {
@@ -29,7 +28,7 @@ const List = ({ match, user, history }) => {
     useEffect(() => {
         if (user.id) {
             getFullList(user.id, matchId).then(data => {
-                
+
                 if (data.name) {
                     setUserList(data)
                     //setUserList({ ...data, item: [{ name: 'test' }] })
@@ -47,6 +46,10 @@ const List = ({ match, user, history }) => {
             ...item,
             checked
         }).then(({ data }) => {
+            addToast('update success', {
+                appearance: 'success',
+                autoDismiss: true,
+            });
         }).catch((data) => {
             addToast(data.message, {
                 appearance: 'error',
@@ -64,12 +67,30 @@ const List = ({ match, user, history }) => {
     //     const updateList = userList.item.filter(i => item._id !== i._id);
     //     const { id: matchId } = match.params;
     //     setUserList({ ...userList, item: updateList });
-    //     deleteItem(user.id, matchId, item._id).then(res => console.log('res', res));
     // };
-    const editHandler = ()=> {
+    const editHandler = () => {
         setEditMode(true);
     }
-    
+    const submit = value => {
+        console.log(value)
+        updateListService(user.id,matchId, value).then(response => {
+            //history.go(0);
+            setUserList({
+                ...value,
+                item: value.items
+            })
+            addToast('update success', {
+                appearance: 'success',
+                autoDismiss: true,
+            });
+        }).catch((data) => {
+            addToast(data.message, {
+                appearance: 'error',
+                autoDismiss: true,
+            });
+        });
+        setEditMode(false)
+    }
     return (
         <Container>
             <Row className="justify-content-between">
@@ -77,7 +98,7 @@ const List = ({ match, user, history }) => {
                     <Title color={userList.color}>{userList.name}</Title>
                 </Col>
                 {!editMode && <Col xs={2} className="align-self-center text-right">
-                    <Icon src={Pencil} alt='edit icon' onClick={editHandler}/>
+                    <Icon src={Pencil} alt='edit icon' onClick={editHandler} />
                 </Col>}
             </Row>
             <FormContainer>
@@ -92,17 +113,17 @@ const List = ({ match, user, history }) => {
             </Row>
             <ListContainer variant="flush">
                 {userList.item.map((i, key) =>
-                    <ItemList 
+                    <ItemList
                         item={i}
                         id={key}
                         key={key}
                         checkHandeler={checkHandeler}
                         editMode={editMode}
                         color={userList.color}
-                    /> 
+                    />
                 )}
             </ListContainer>
-
+            {editMode && <Model show={editMode} data={userList} cancel={() => setEditMode(false)} submit={submit} />}
         </Container>
     )
 }

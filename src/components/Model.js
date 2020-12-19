@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect} from 'react'
 import { Modal, Button, Container, Row, Col, Form, Table } from 'react-bootstrap';
 import { CirclePicker } from 'react-color';
 import styled from 'styled-components';
@@ -13,14 +13,21 @@ const TrashIcon = styled.img`
     height:20px;
 `;
 // const colorArray = ["#f44336", "#e91e63", "#9c27b0", "#673ab7", "#3f51b5", "#2196f3", "#03a9f4", "#00bcd4", "#009688", "#4caf50", "#8bc34a", "#cddc39", "#ffeb3b", "#ffc107", "#ff9800", "#ff5722", "#795548", "#607d8b"];
-export const Model = ({ show, cancel, submit }) => {
-    const nameInputRef = useRef(null);
+export const Model = ({ show, cancel, submit, data }) => {
+    const nameInputRef = useRef();
     const elementosInputRef = useRef(null);
     const marcaInputRef = useRef(null);
     const cantidadInputRef = useRef(null);
     const [lista, setLista] = useState([]);
     const [isFocus, setFocus] = useState(false);
     const [color, setColor] = useState(Theme.colorlist[1]);
+    useEffect(() => {
+        if (data && data.name) {
+            nameInputRef.current.value= data.name
+            setLista(data.item)
+            setColor(data.color);
+        }
+    }, [data])
 
     const enterHandler = event => {
         if (isFocus && event.keyCode === 13) {
@@ -135,7 +142,6 @@ export const Model = ({ show, cancel, submit }) => {
                         <TableElements striped bordered hover>
                             <thead>
                                 <tr>
-                                    <th>#</th>
                                     <th>nombre</th>
                                     <th>marca</th>
                                     <th>cantidad</th>
@@ -145,7 +151,6 @@ export const Model = ({ show, cancel, submit }) => {
                             <tbody>
                                 {lista.map((i, key) => (
                                     <tr key={key}>
-                                        <td>{key + 1}</td>
                                         <td>{i.name}</td>
                                         <td>{i.marca}</td>
                                         <td>{i.cantidad}</td>
@@ -160,7 +165,7 @@ export const Model = ({ show, cancel, submit }) => {
                             <Button variant="danger" onClick={cancel}>Cancelar</Button>
                         </Col>
                         <Col className='text-right align-self-end' >
-                            <Button variant="success" onClick={submitForm}>Crear Lista</Button>
+                            <Button variant="success" onClick={submitForm}>{data? 'Editar Lista':'Crear Lista'}</Button>
                         </Col>
                     </Row>
 

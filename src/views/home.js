@@ -5,7 +5,7 @@ import { SearchBar, Model, CirculeImage } from './../components';
 import { getList, postList } from "./../services";
 import styled from 'styled-components';
 import AddIcon from './../utilities/icons/plus.svg';
-
+import { useToasts } from 'react-toast-notifications'
 
 const Icon = styled.img`
 	width: 15px;
@@ -34,6 +34,7 @@ const CardContainer = styled(Col)`
 
 const Home = ({ user, history }) => {
 	const [list, setList] = useState([]);
+	const { addToast } = useToasts();
 	const [addModalFlag, setAddModalFlag] = useState(false);
 	useEffect(() => {
 		if (user && user.id) {
@@ -53,7 +54,13 @@ const Home = ({ user, history }) => {
 	const submit = value => {
 		postList(user.id, value).then(response => {
 			history.push(`/list/${response._id}`)
-		});
+		}).catch(err=>{
+			addToast(err.message, {
+                appearance: 'error',
+                autoDismiss: true,
+            });
+		}
+		);
 		closeModal()
 	}
 	const goToList = list => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getFullList, updateItem, updateListService } from "./../services";
+import { getFullList, updateItem, updateListService, deletList} from "./../services";
 import { connect } from 'react-redux';
 import { Container, Row, Col, ListGroup } from 'react-bootstrap'
 import { SearchBar, ItemList, Icon, Model } from './../components'
@@ -59,15 +59,13 @@ const List = ({ match, user, history }) => {
     }
     const searchChangeHandelr = value => {
     }
-    // const removeListHandler = () => {
-    //     const { id: matchId } = match.params;
-    //     deletList(user.id, matchId).then(res => history.goBack())
-    // };
-    // const removeItemHandler = item => {
-    //     const updateList = userList.item.filter(i => item._id !== i._id);
-    //     const { id: matchId } = match.params;
-    //     setUserList({ ...userList, item: updateList });
-    // };
+    const removeListHandler = () => {
+        const { id: matchId } = match.params;
+        deletList(user.id, matchId).then(res => {
+            setEditMode(false);
+            history.goBack()
+        })
+    };
     const editHandler = () => {
         setEditMode(true);
     }
@@ -123,7 +121,7 @@ const List = ({ match, user, history }) => {
                     />
                 )}
             </ListContainer>
-            {editMode && <Model show={editMode} data={userList} cancel={() => setEditMode(false)} submit={submit} />}
+            {editMode && <Model deleteList={removeListHandler} show={editMode} data={userList} cancel={() => setEditMode(false)} submit={submit} />}
         </Container>
     )
 }

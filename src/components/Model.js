@@ -12,8 +12,11 @@ const TrashIcon = styled.img`
     width: 20px;
     height:20px;
 `;
+const trashContainer = styled.div`
+    w
+`;
 // const colorArray = ["#f44336", "#e91e63", "#9c27b0", "#673ab7", "#3f51b5", "#2196f3", "#03a9f4", "#00bcd4", "#009688", "#4caf50", "#8bc34a", "#cddc39", "#ffeb3b", "#ffc107", "#ff9800", "#ff5722", "#795548", "#607d8b"];
-export const Model = ({ show, cancel, submit, data }) => {
+export const Model = ({ show, cancel, submit, data, deleteList }) => {
     const nameInputRef = useRef();
     const elementosInputRef = useRef(null);
     const marcaInputRef = useRef(null);
@@ -83,6 +86,11 @@ export const Model = ({ show, cancel, submit, data }) => {
         >
             <Modal.Body>
                 <Container>
+                    {data && <Row>
+                        <Col className="text-right">
+                            <TrashIcon src={Trash} onClick={deleteList}/>
+                        </Col>
+                    </Row>}
                     <Row>
                         <Col>
                             <Form.Group>
